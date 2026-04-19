@@ -1,7 +1,5 @@
 ---
 title: "How Much Do Dental Implants Cost in Bangkok? A 2026 Price Guide"
-meta_title: "Dental Implants Cost in Bangkok 2026 | The Dent"
-meta_description: "2026 Bangkok dental implant prices: single implant, All-on-4, Straumann vs Osstem, what's included. Book a free consultation at The Dent."
 slug: dental-implants-cost-bangkok-2026
 locale: en
 primary_keyword: dental implants cost bangkok
@@ -25,7 +23,7 @@ reviewed_by: <!-- CONFIRM doctor byline -->
 
 # How Much Do Dental Implants Cost in Bangkok? A 2026 Price Guide
 
-In 2026, a single dental implant in Bangkok typically costs between <!-- CONFIRM: THB 45,000–90,000 --> (approximately USD 1,250–2,500) for the complete fixture, abutment (the connector between fixture and crown), and crown — roughly 50–70% less than equivalent treatment in the UK, US, or Australia, with the final price driven by implant brand, bone-graft needs, and crown material. <!-- SOURCE NEEDED: NHS / ADA / AHPRA benchmarks for the 50–70% delta. -->
+In 2026, a single dental implant in Bangkok typically costs between <!-- CONFIRM: THB 45,000–90,000 --> (approximately USD 1,250–2,500) for the complete fixture, abutment, and crown — roughly 50–70% less than equivalent treatment in the UK, US, or Australia, with the final price driven by implant brand, bone-graft needs, and crown material. <!-- SOURCE NEEDED: NHS / ADA / AHPRA benchmarks for the 50–70% delta. -->
 
 ## Key takeaways
 
@@ -239,7 +237,7 @@ Reviewed by <!-- CONFIRM: implant specialist name, DDS, MSc Implantology -->, im
       "description": "Transparent 2026 price guide for dental implants in Bangkok — single implant, All-on-4, brands, and what's included.",
       "inLanguage": "en",
       "url": "https://thedent.co.th/en/blog/dental-implants-cost-bangkok-2026",
-      "datePublished": "2026-04-19",
+      "datePublished": "2026-04-21",
       "dateModified": "2026-04-19",
       "lastReviewed": "2026-04-19",
       "about": { "@id": "#dental-implant-procedure" },
