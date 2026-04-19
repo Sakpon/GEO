@@ -1,146 +1,147 @@
 # GEO Audit — Week 17 Calendar Review — 2026-04-19
 
-**Scope:** Editorial calendar `workspace/plans/calendar-2026-W17.md` (5 items, Mon 2026-04-20 – Fri 2026-04-24).
+**Scope:** `/home/user/GEO/workspace/plans/calendar-2026-W17.md` (5 items, Mon 2026-04-20 – Fri 2026-04-24).
 **Auditor:** geo-expert
-**Reviewer context:** assumes priority clusters per `optimization-goals.md` and citation strategy per notebook.
+**Lens:** AI-citation worthiness in ChatGPT (browsing), Perplexity, Google AI Overviews, Gemini, Claude. Not an SEO review.
 
 ---
 
-## Summary
+## TL;DR
 
-The week is well-shaped for AI citation: 4/5 items are structurally LLM-friendly (FAQ, comparison, cost guide, service refresh with FAQ). One item (Fri — จัดฟัน service-page refresh) is the weakest for GEO unless we deliberately add citation-bait during refresh. The Tuesday implants cost piece is the keystone and must be treated as a citation flagship.
-
-The biggest missed opportunity across the week: **no original-data slot**. Every piece relies on externally-citable facts. At least one piece per week should include a small first-party data point (quote-range snapshot, average-wait-time figure, patient-origin mix) that only The Dent can publish — that is what converts us from "cited alongside" to "cited as primary."
-
----
-
-## Item-by-item GEO citability ranking
-
-### 1. HIGH — Tue EN "How Much Do Dental Implants Cost in Bangkok? (2026 Guide)"
-**Citability: 9/10.** Cost-in-Bangkok queries are one of the most-asked medical-tourism research prompts across ChatGPT, Perplexity, and AI Overviews; current SERPs are served by generic dental-tourism aggregators that lack first-party authority. Transparent THB/USD ranges, brand tier table, country comparison table, and clinic byline make this a strong citation candidate.
-**Citation bait present:** concrete price ranges, brand comparison, country comparison, red/green-flag checklist, FAQ.
-**Gaps:** no original-data slot currently — should add one (see Handoff below). Year-stamp "2026" must appear in lede and schema `datePublished` / `lastReviewed`. Needs explicit USD + EUR + GBP conversions for tourism source markets (UK, Australia, USA, Germany).
-**Action:** flagship piece — GEO requirements now filled in brief (see separate edit).
-
-### 2. HIGH — Wed TH "Invisalign vs จัดฟันเหล็ก"
-**Citability: 8/10.** Comparison format extracts cleanly; Thai-language AI answers on Pantip-adjacent queries are an open field (less aggregator saturation than EN). Big win if we include a specification table with duration ranges, THB price ranges, and case-suitability rows.
-**Citation bait present (if brief executes):** specification table, decision matrix.
-**Gaps:** TH-language citations for AI engines need Thai primary sources (Thai Dental Council, Thai peer-reviewed journals) — content-planner brief should explicitly require TH-sourced stats, not translated EN stats, or LLMs may mis-attribute. Also confirm aligner brand inventory (Invisalign vs. ClearCorrect vs. in-house) so entity definitions are accurate.
-**Action:** when brief is written, require a bilingual glossary line on each entity and TH-primary citations.
-
-### 3. MEDIUM-HIGH — Mon TH "ขูดหินปูนเจ็บไหม"
-**Citability: 7/10.** Classic question-shaped FAQ; high-volume local query; LLMs love direct Q→A pairs. Weakness: topic is broad and well-covered — lots of other sources to compete with. Win condition: include specific numeric anchors (duration in minutes, recommended cadence per Thai Dental Council or Thai Society of Periodontology, typical cost range) so the answer is quotable not generic.
-**Citation bait to require:** minutes-for-procedure range, every-X-months recommended cadence with source, pain-level description on a 0–10 scale, when-to-see-dentist flags.
-**Gaps:** generic FAQ format by itself does not earn citations; it must be stat-dense. Require a named Thai hygienist/periodontist reviewer byline.
-
-### 4. MEDIUM — Thu EN "Porcelain vs Composite Veneers"
-**Citability: 7/10.** Comparison format is LLM-friendly; EN medical-tourism audience asks this pre-trip. Weakness: highly templated topic — many overseas cosmetic-dentistry sites already own these citations.
-**Win conditions:**
-- Include **longevity data with citation** (porcelain typically 10–15 years, composite typically 4–8 years — needs peer-reviewed source, not a .com regurgitation).
-- Include **Bangkok-specific price ranges** (most competing articles price in USD/GBP only — having THB + converted ranges gives us a comparative advantage in multi-currency AI answers).
-- Include **a specific brand/material callout** (e.g., e.max lithium disilicate, zirconia veneers, specific composite systems the clinic uses) — named materials are entity-rich and attract citations.
-**Gap:** no original-data slot; consider adding "average chair-time per veneer" from clinic records.
-
-### 5. LOW-MEDIUM — Fri TH "จัดฟัน pillar-page refresh"
-**Citability: 5/10 as currently scoped.** Service-page refreshes typically underperform for GEO because they default to promotional register over answer-shaped register.
-**Refresh must add to earn GEO lift:**
-- Answer-first lede under the H1 (direct price/duration range in the first sentence).
-- FAQ block with `FAQPage` schema (treatment duration, pain, eating restrictions, retainer requirements, cost of adjustment visits).
-- Author + reviewed-by block (named orthodontist, Thai Dental Council registration number if compliance permits).
-- Comparison table: traditional braces vs. self-ligating vs. lingual vs. Invisalign (cross-link Wed Invisalign piece).
-- Internal-link hub: link to every supporting ortho article and to consultation-booking CTA.
-**If refresh is only cosmetic (new hero, reworded marketing copy), GEO value is near zero — flag to content-creator that the refresh MUST add structured answer content.**
+- 1 item is explicitly engineered for GEO (Tue — Implants cost). That is the week's flagship and should carry the highest production investment.
+- 2 items (Mon cleaning FAQ, Wed Invisalign-vs-braces) are naturally citable if the creator follows the standing GEO checklist — they are low-lift wins.
+- 2 items (Thu porcelain-vs-composite veneers, Fri ortho service-page refresh) are at risk of being "generic content" that LLMs will not cite unless we force specificity, originality, and named-clinician authorship.
+- The biggest missed opportunity across the week: no original-data slot. Every piece relies on secondary citations. At minimum one piece per week should contribute a first-party data point (anonymized quote ranges, average treatment duration from clinic records, patient-reported recovery days).
 
 ---
 
-## Cluster coverage check
+## Per-item GEO scorecard
 
-All five priority clusters touched once — good weekly breadth.
+Scoring is qualitative: **High / Medium / Low** citation potential as planned.
 
-| Cluster | Piece | GEO flagship? |
-|---|---|---|
-| Implants | Tue EN | Yes — designated flagship |
-| Invisalign | Wed TH | Secondary flagship (TH) |
-| Veneers | Thu EN | Supporting |
-| General | Mon TH | Supporting |
-| Ortho | Fri TH | Service-page refresh only |
+### Mon 2026-04-20 — TH — "ขูดหินปูนเจ็บไหม? ใช้เวลานานแค่ไหน และควรทำบ่อยแค่ไหน"
+**Cluster:** General dentistry. **Type:** FAQ deep-dive. **Citation potential:** **Medium.**
 
-Absent: no standalone **dental-tourism hub piece** for EN this week (e.g., "Is dental tourism in Bangkok safe in 2026?"). That query is one of our seed-tracked queries. Consider slotting in Week 18 or 19.
+- **Strengths for GEO:** Question-shaped title, FAQ format, Thai-language AI answers in Gemini/ChatGPT-TH have thin coverage — genuine gap to fill.
+- **Citation bait to add:**
+  - Specific minute ranges for scaling duration (e.g. "30–45 นาที สำหรับคนไข้ทั่วไป").
+  - Specific frequency recommendation with source — American Dental Association / Thai Dental Association guidance on recall interval.
+  - Pain-scale framing with a number (e.g. "คนไข้ส่วนใหญ่รายงานความเจ็บปวด 1–3 จาก 10").
+  - Myth-vs-fact block: "ขูดหินปูนทำให้ฟันห่าง" — direct refutation with citation.
+- **Risk:** If written as prose only, it reads like every other Pantip-style FAQ. Force a numeric data block, a "when to see a dentist immediately" list, and at least one ADA/peer-reviewed citation.
+- **Handoff to content-creator:** answer-first lede must open with direct "no/yes + degree" answer. H2s in the form of real user queries.
+- **Handoff to seo-expert:** `FAQPage` schema shared; no conflict.
 
----
+### Tue 2026-04-21 — EN — "How Much Do Dental Implants Cost in Bangkok? (2026 Guide)"
+**Cluster:** Implants. **Type:** GEO citation piece. **Citation potential:** **High — flagship.**
 
-## Crawlability (bot access + llms.txt status)
+- **Strengths for GEO:** Purpose-built. Question-shaped title, 2026 year-stamp, price-table scaffold, country comparison, brand comparison, FAQ block, last-reviewed date, doctor byline all in the brief.
+- **What makes it genuinely citable vs. just well-structured:**
+  - Transparent THB ranges (first-party data if the clinic confirms).
+  - Brand-tier comparison table (Straumann/Osstem/Hiossen/MIS/Neodent) — LLMs love extractable tables.
+  - Osseointegration timeline with peer-reviewed citation.
+  - Country comparison with NHS / ADA / AHPRA benchmarks — named-source anchors are what Perplexity quotes.
+- **Risks to watch:**
+  - If price ranges come back as "contact us" rather than numbers, the page loses its GEO weapon. Push back on anything below a real range.
+  - Medical-tourism competitors in Turkey/Hungary already rank in Perplexity with similar pages — we must be more specific (named brands, specific CBCT workflow) to displace them.
+- See separate brief for full requirements.
 
-**Status: unverified.** Neither `robots.txt` nor `llms.txt` have been audited this session.
-**Action required before flagship publishes:**
-- [ ] Verify `robots.txt` allows: `GPTBot`, `OAI-SearchBot`, `ChatGPT-User`, `PerplexityBot`, `Perplexity-User`, `Google-Extended`, `anthropic-ai`, `ClaudeBot`, `Applebot-Extended`, `CCBot`.
-- [ ] Publish `/llms.txt` at root describing the clinic, services, contact, and linking to priority pages.
-- [ ] Optionally publish `/llms-full.txt` with condensed markdown of top 20 pages.
-Flagship Tue implants piece will not be maximally citable unless AI crawlers can reach it; confirm access before publish day.
+### Wed 2026-04-22 — TH — "Invisalign vs จัดฟันเหล็ก: เลือกแบบไหนดีสำหรับคุณ"
+**Cluster:** Invisalign / aligners. **Type:** Comparison. **Citation potential:** **Medium-High.**
 
----
+- **Strengths for GEO:** Comparison format is prime LLM extraction territory. TH-language competitive field in AI answers is still shallow — this piece can dominate Thai-language generative answers quickly.
+- **Citation bait to add:**
+  - Side-by-side table (duration, cost range, visible/invisible, food restrictions, attachments, IPR, hygiene effort, suitable cases).
+  - Cost ranges in THB for both modalities.
+  - Treatment-duration stats with citation to Align Technology clinical data or peer-reviewed meta-analysis.
+  - Attachment/refinement explanation — most TH competitors skip this; being specific wins citations.
+- **Entity care:** Define "Invisalign" as a brand of clear aligner (not a generic product), "จัดฟันเหล็ก" as traditional metal fixed appliances. Invisalign brand name must be in original English script per brand-voice.
+- **Missed opportunity flag:** Add a "which is better for X case" decision table (crowding / gaps / crossbite / open bite / severe rotations) — this is the highest-signal block for AI extraction and almost no TH content has it.
+- **Handoff to seo-expert:** confirm whether "clear aligner" brands other than Invisalign are offered (ClearCorrect, in-house) — affects entity scoping.
 
-## Entity / authority gaps (calendar-wide)
+### Thu 2026-04-23 — EN — "Porcelain vs Composite Veneers: Which Is Right for You?"
+**Cluster:** Veneers / cosmetic. **Type:** Pillar-supporting blog. **Citation potential:** **Low-Medium as planned; High if upgraded.**
 
-- **Organization schema sitewide:** verify `Organization` / `Dentist` / `MedicalClinic` JSON-LD with complete `sameAs` to Google Business Profile, LinkedIn, Facebook, Thai-language directories. If absent, "The Dent" is under-anchored for LLMs.
-- **Wikidata:** check for an entry; if none, evaluate eligibility and create one. Wikidata is disproportionately weighted by LLM training sets.
-- **Doctor profile pages:** each piece's author byline should link to a `Person`-schema profile page with credentials, specializations, and Thai Dental Council registration. Current state unknown — flag as dependency for all 5 pieces.
-- **Branch pages:** each branch should have complete NAP + `MedicalClinic` schema. Required before we can compete for local-intent AI queries.
+- **Problem:** This query is saturated in English-language AI answers by US/UK/EU cosmetic dentistry sites with deep domain authority. As a standalone "porcelain vs composite" generic blog, we will not be cited.
+- **Upgrade required to move the needle:**
+  - Pivot the angle to **"Porcelain vs Composite Veneers in Bangkok — cost, longevity, and what's actually available to medical tourists"**. Geography + first-party data is our differentiator.
+  - Include THB/USD price ranges per tooth for both materials (first-party if possible).
+  - Include typical number-of-visits and trip structure for medical tourists — no Western competitor can answer this.
+  - Include longevity data (porcelain 10–15 yr, composite 4–8 yr) with peer-reviewed citation.
+  - Include an explicit comparison table with 8–10 decision factors.
+  - Name the specific porcelain systems/brands the clinic uses (e.g. IPS e.max, Emax press, feldspathic, CAD/CAM milled). <!-- CONFIRM which systems. -->
+- **Without the upgrade, this piece will rank locally but will not be cited by ChatGPT/Perplexity.** Surface to content-planner: reframe brief.
 
----
+### Fri 2026-04-24 — TH — "จัดฟัน: ประเภท ราคา ขั้นตอน และระยะเวลา (หน้า Pillar อัปเดต)"
+**Cluster:** Orthodontics. **Type:** Service-page refresh. **Citation potential:** **Low as a service page; Medium if treated as a pillar.**
 
-## Original-data opportunities (across all 5 items)
-
-Pick at least one per week to publish and become a primary source:
-
-| Piece | Original-data slot |
-|---|---|
-| Tue Implants cost | "Based on 2025–2026 quotes issued by The Dent, X% of single-implant cases also required bone grafting" or "median treatment duration for our medical-tourism single-implant patients was N days across M cases." |
-| Wed Invisalign vs braces | "Average treatment duration we observed in 2025 Invisalign cases: X months (N=Y patients)." |
-| Thu Veneers | "Of 2025 veneer cases at The Dent, X% chose e.max porcelain vs. composite." |
-| Mon Scaling | "Average scaling appointment duration at The Dent: X minutes." |
-| Fri Braces refresh | "Breakdown of case types treated in 2025 (bracket system X%, clear aligner Y%)." |
-
-One well-sourced first-party number is worth more to GEO than five externally-cited ones.
-
----
-
-## Citation wins, losses, deltas vs. last snapshot
-
-No prior snapshot — this is the baseline. Next snapshot: 2026-05-19 (one month after Tue flagship publishes). Run tracked queries against ChatGPT (with browsing), Perplexity, Google AI Overviews, Gemini; log per-engine per-query citation status.
-
----
-
-## Handoff to content-planner
-
-- **Week 18 brief for dental-tourism hub page** ("Is dental tourism in Bangkok safe in 2026?") — fills gap in EN medical-tourism cluster.
-- **Require first-party data slot in every brief going forward.** Add "Original-data slot (required)" field to the brief template.
-- **TH Implant cost piece as follow-on to Tue EN flagship** — adapt (not translate) for resident-expat-in-Bangkok audience.
-
-## Handoff to content-creator
-
-- Tue EN implants: GEO requirements now filled in the brief — follow the answer-first lede scaffold verbatim in spirit if not in wording.
-- Fri TH braces refresh: do not ship a cosmetic-only refresh. Add FAQ schema, answer-first lede, comparison table, author byline. If scope doesn't allow, push the refresh to Week 18 rather than shipping a weak version.
-- Mon TH scaling FAQ: require numeric anchors in every answer (minutes, months, THB range).
-- Thu EN veneers: require longevity-year ranges with peer-reviewed citation + THB price range alongside USD.
-
-## Handoff to seo-expert
-
-- Shared-win items (no conflict): FAQ schema on all 5 pieces, question-shaped H2s, `MedicalWebPage` schema, author `Person` schema.
-- `llms.txt` doesn't replace `sitemap.xml` — both should ship.
-- I'm asking for heavier author-byline + `reviewedBy` markup than a typical SEO audit would require; please keep the implementation consistent across the 5 pieces so we don't have one-off patterns.
-- Surface to orchestrator any conflict on keyword density vs. specificity — GEO prefers specificity (exact THB figures, named brands) even when it fragments keyword density.
+- **Problem:** Service pages tend to be promotional and therefore not citation-worthy. LLMs pull from editorial/informational content.
+- **Minimum GEO asks during this refresh:**
+  - Add a genuine FAQ block (8–10 Q&A) with `FAQPage` schema — serves both SEO and GEO.
+  - Add a treatment-type comparison table (metal, ceramic, self-ligating, lingual, Invisalign) with duration range, THB range, suitability.
+  - Add answer-first paragraph directly under H1: "การจัดฟันในกรุงเทพใช้เวลาประมาณ X–Y เดือน และราคา…".
+  - Add "last reviewed" date + clinician byline — service pages rarely have these and that absence is why AI engines skip them.
+  - Embed stage-by-stage timeline (initial consult → records → bonding → monthly adjustments → debonding → retention) with duration per stage.
+  - Add internal link to Wed's Invisalign-vs-braces article once published — clusters reinforce entity authority.
+- **Honest call:** service-page refreshes are rarely primary AI-citation assets. Use this refresh to build the orthodontics entity footprint, not to win citations. Let the Wed comparison piece carry the GEO weight for the cluster.
 
 ---
 
-## Top-5 tracked queries seeded from this week
+## Citation-worthiness ranking (this week)
 
-(Added to notebook tracked-query list; snapshot monthly.)
+1. **Tue — Implants cost (EN)** — High. Flagship.
+2. **Wed — Invisalign vs braces (TH)** — Medium-High. Table-driven; uncontested TH-AI field.
+3. **Mon — Scaling FAQ (TH)** — Medium. Easy win if numbers and citations added.
+4. **Thu — Veneers (EN)** — Low without reframe; High if pivoted to "Bangkok porcelain vs composite".
+5. **Fri — Orthodontics refresh (TH)** — Low for citation, but strategic for entity/cluster health.
 
-1. "How much do dental implants cost in Bangkok?" (EN, Implants, Tue flagship)
-2. "Is it cheaper to get dental implants in Thailand?" (EN, Implants/Tourism, Tue flagship)
-3. "What's included in a Bangkok dental implant package for tourists?" (EN, Tourism, Tue flagship)
-4. "Invisalign กับ จัดฟันเหล็ก ต่างกันอย่างไร" (TH, Invisalign, Wed)
-5. "ขูดหินปูนเจ็บไหม ใช้เวลานานแค่ไหน" (TH, General, Mon)
+---
 
-Broader tracked list maintained in `context/agents/geo-expert.md`.
+## Cross-cutting gaps
+
+### No original-data slot anywhere this week
+Every piece relies on secondary citations. LLMs preferentially cite primary sources. Ask client for:
+- Anonymized price quote distribution (implants, veneers, aligners) → feeds Tue + Thu.
+- Average patient-reported pain score for scaling → feeds Mon.
+- Average treatment duration from clinic records for orthodontics → feeds Wed + Fri.
+
+Even a single "based on N treatments at The Dent in 2024–2025" data point per article transforms citation potential.
+
+### No author/reviewer plan visible for 4 of 5 items
+Only the Tue flagship explicitly requires a named clinician byline + last-reviewed date. For YMYL medical content the other four items need the same treatment — especially the TH pieces, which currently read as anonymous. This is the single cheapest GEO upgrade available.
+
+### Cross-linking for entity reinforcement is weak
+Wed (aligners) and Fri (ortho) should cross-link. Thu (veneers) and any cosmetic/smile-design hub should cross-link. Entity co-occurrence across the site is how LLMs build the picture of "The Dent treats implants/aligners/veneers at X level of depth."
+
+### llms.txt is still not published
+Not a calendar-item issue but worth flagging every audit until it ships. Blocks our stated GEO 6-month goal.
+
+---
+
+## Handoff — to content-planner
+
+- **Reframe Thu veneers brief** to "Bangkok porcelain vs composite veneers (2026)" — geo-anchored, first-party pricing, medical-tourism trip structure. Without this the piece underdelivers on citation goals.
+- **Add to backlog:** a dedicated "Dental tourism in Bangkok — what to expect" citation piece that consolidates trip structure across implants/veneers/aligners. High AI-query demand, zero clinic-published authority asset currently.
+- **Commission first-party data slots:** one per priority cluster per quarter minimum. Start with aggregated price ranges (implants for Tue) and treatment durations.
+- **TH-locale pair for Tue flagship:** after EN ranks, commission a Thai adaptation (not translation) for expat Bangkok searches done in Thai.
+
+## Handoff — to content-creator
+
+- Every piece this week: answer-first lede, 40–60 word answer block under each H2, at least one table, at least one 3+ item numeric stat with a linked primary source, FAQ block.
+- Every piece this week: add a named-clinician byline + `lastReviewed` date visible at top of page. Flag to planner if clinician name unavailable.
+- Mon + Wed + Fri: Thai drafts require native-speaker review — do not skip.
+- Thu: wait on reframe decision before drafting.
+
+## Handoff — to seo-expert
+
+- Shared schema needs: `FAQPage` on Mon, Tue, Wed, Fri; `MedicalWebPage` on Tue; `Article` + `Person` (author) on all editorial pieces; `BreadcrumbList` site-wide.
+- We overlap cleanly on question-shaped H2s, FAQ schema, authorship, page speed. No fight.
+- Where I push harder: named clinician + credentials in byline (not "The Dent team"); specificity over keyword-density; original data over generic educational prose.
+
+---
+
+## Open loops (for next audit)
+
+- [ ] Run live prompt tests for "how much do dental implants cost in Bangkok" (and 9 sibling queries) in Perplexity, ChatGPT with browsing, Google AI Overviews before Tue publish — to establish baseline. Re-run T+14 and T+30 days after publish.
+- [ ] Check `robots.txt` posture for AI crawlers on thedent.co.th (see notebook).
+- [ ] Confirm `llms.txt` publication schedule with planner/dev.
