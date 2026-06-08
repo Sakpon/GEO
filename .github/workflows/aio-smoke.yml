@@ -1,0 +1,44 @@
+name: AIO smoke (manual marker)
+
+# A real, on-demand smoke run of the AIO probe against SerpApi.
+# Runs ONLY when a pushed commit message contains "[run-aio]", so it never
+# spends API credits on ordinary pushes. Prints the report to the job log and
+# does NOT commit anything (a smoke run is not a meaningful baseline).
+#
+# Requires the SERPAPI_API_KEY repository Actions secret.
+
+on:
+  push:
+    branches:
+      - "claude/**"
+
+jobs:
+  smoke:
+    if: contains(github.event.head_commit.message, '[run-aio]')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r experiments/requirements.txt
+
+      - name: Real smoke run (core tier, 1 run each)
+        env:
+          SERPAPI_API_KEY: ${{ secrets.SERPAPI_API_KEY }}
+        run: |
+          if [ -z "$SERPAPI_API_KEY" ]; then
+            echo "::error::SERPAPI_API_KEY secret is not set."; exit 1
+          fi
+          cd experiments
+          python aio_citation_probe.py --tier core --n-runs 1 --yes
+
+      - name: Print report to log
+        run: |
+          echo "===== Markdown report ====="
+          cat workspace/geo-audits/*-aio-citation-probe.md
+          echo "===== Raw runs ====="
+          cat experiments/results/*-raw.jsonl
