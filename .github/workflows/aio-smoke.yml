@@ -1,20 +1,22 @@
-name: AIO smoke (tag triggered)
+name: AIO smoke (commit marker)
 
 # A real, on-demand smoke run of the AIO probe against SerpApi.
-# Triggered ONLY by pushing a tag matching "aio-run-*" (a deliberate action),
-# so it can never fire from ordinary pushes or commit-message text. Prints the
-# report to the job log and commits nothing (a smoke run is not a baseline).
+# Runs ONLY when the latest pushed commit's message contains the exact token
+# below. Keep that token out of ordinary commit messages so it never fires by
+# accident. (Tag triggers aren't usable here: the git proxy only accepts pushes
+# to the working branch, not tags.)
 #
-# To run:   git tag aio-run-1 <commit> && git push origin aio-run-1
+# To run: push an empty commit whose message contains the trigger token.
 # Requires the SERPAPI_API_KEY repository Actions secret.
 
 on:
   push:
-    tags:
-      - "aio-run-*"
+    branches:
+      - "claude/**"
 
 jobs:
   smoke:
+    if: contains(github.event.head_commit.message, 'AIO_SMOKE_TRIGGER_7F3A')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
