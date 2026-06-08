@@ -1,0 +1,28 @@
+name: CI
+
+# Runs the AIO probe test suite on PRs and pushes. No network / no API key
+# needed — the tests mock the SerpApi layer.
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "claude/**"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r experiments/requirements.txt
+
+      - name: Run test suite
+        run: |
+          cd experiments
+          python tests/test_aio.py

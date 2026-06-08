@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Job {{ job_id }} — AIO Audit{% endblock %}
+{% block content %}
+{% if job.status == 'running' %}
+<meta http-equiv="refresh" content="3">
+{% endif %}
+
+<h1>Audit job</h1>
+<p class="muted">Started {{ job.started }} · status:
+  <strong class="status {{ job.status }}">{{ job.status }}</strong></p>
+
+{% if job.status == 'running' %}
+  <div class="card">
+    <p>Working… {{ job.done }} / {{ job.total }} prompts · {{ job.calls }} API calls so far.</p>
+    <div class="bar"><div class="bar-fill"
+         style="width: {{ (100 * job.done / job.total) if job.total else 0 }}%"></div></div>
+    <p class="muted">Now: {{ job.label or '—' }}</p>
+    <p class="muted">This page refreshes automatically.</p>
+  </div>
+{% elif job.status == 'error' %}
+  <div class="banner error">Run failed: {{ job.error }}</div>
+  <p><a class="btn" href="{{ url_for('index') }}">Back</a></p>
+{% else %}
+  {% set s = job.summary %}
+  <div class="card">
+    <p><strong>Done.</strong> {{ s.prompts_run }} prompts · {{ s.total_calls }} API calls.</p>
+    <p class="muted">Month-to-date: {{ s.calls_used_this_month }} / {{ s.monthly_budget }}.
+      {% if s.prompts_skipped %}Skipped (budget): {{ s.prompts_skipped|join(', ') }}.{% endif %}</p>
+  </div>
+
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>Prompt</th><th>Lang</th><th>Runs</th><th>AIO</th>
+        <th>The Dent</th><th>Top cited</th></tr></thead>
+      <tbody>
+      {% for r in s.results %}
+        <tr>
+          <td>{{ r.query }}</td>
+          <td>{{ r.hl }}</td>
+          <td>{{ r.runs }}</td>
+          <td>{{ (r.aio_rate * 100)|round|int }}%</td>
+          <td class="{{ 'hit' if r.thedent_rate > 0 else 'miss' }}">
+            {{ (r.thedent_rate * 100)|round|int }}%</td>
+          <td>{% for d, n in r.top_domains[:3] %}{{ d }} ({{ n }}){% if not loop.last %}, {% endif %}{% endfor %}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="actionbar">
+    <a class="btn primary" href="{{ url_for('download', filename=s.report_xlsx.split('/')[-1]) }}">Download Excel</a>
+    <a class="btn" href="{{ url_for('download', filename=s.report_md.split('/')[-1]) }}">Download Markdown</a>
+    <a class="btn" href="{{ url_for('trends') }}">View trends</a>
+  </div>
+{% endif %}
+{% endblock %}

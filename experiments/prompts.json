@@ -1,0 +1,26 @@
+{
+  "n_runs": 10,
+  "min_runs": 6,
+  "ci_halfwidth_target": 0.10,
+  "monthly_call_budget": 1000,
+  "throttle_seconds": 1.5,
+  "target_domain": "thedent.co.th",
+  "defaults": {
+    "location": "Thailand",
+    "gl": "th",
+    "google_domain": "google.co.th",
+    "no_cache": true
+  },
+  "prompts": [
+    { "id": "implants-best-en",   "q": "Best dental implant clinic in Bangkok",        "hl": "en", "tier": "core" },
+    { "id": "implants-best-th",   "q": "คลินิกรากฟันเทียมที่ดีที่สุดในกรุงเทพ",          "hl": "th", "tier": "core" },
+    { "id": "veneers-cost-en",    "q": "How much do veneers cost in Thailand?",         "hl": "en", "tier": "core" },
+    { "id": "veneers-cost-th",    "q": "วีเนียร์ราคาเท่าไหร่ในประเทศไทย",                "hl": "th", "tier": "full" },
+    { "id": "invisalign-vs-en",   "q": "Invisalign vs braces Thailand",                 "hl": "en", "tier": "core" },
+    { "id": "invisalign-vs-th",   "q": "Invisalign กับจัดฟันเหล็ก แบบไหนดี",            "hl": "th", "tier": "full" },
+    { "id": "tourism-safe-en",    "q": "Is dental tourism in Bangkok safe?",            "hl": "en", "tier": "core" },
+    { "id": "tourism-safe-th",    "q": "ทำฟันในกรุงเทพปลอดภัยไหม",                      "hl": "th", "tier": "full" },
+    { "id": "implant-life-en",    "q": "How long do dental implants last?",             "hl": "en", "tier": "full" },
+    { "id": "implant-life-th",    "q": "รากฟันเทียมอยู่ได้นานแค่ไหน",                    "hl": "th", "tier": "full" }
+  ]
+}

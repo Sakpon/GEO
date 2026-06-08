@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Trends — AIO Audit{% endblock %}
+{% block content %}
+<h1>Weekly trend — The Dent citation rate</h1>
+<p class="muted">Week-over-week share of runs where The Dent is cited in the AIO.
+  Δ marked <span class="noise">grey</span> means the change is within the
+  confidence interval (sampling noise), not a real move.</p>
+
+{% if not trend.weeks %}
+  <p class="muted">No history yet — run the probe at least twice to see trends.</p>
+{% else %}
+<div class="scroll-x">
+  <table>
+    <thead>
+      <tr><th>Prompt</th>
+        {% for w in trend.weeks %}<th>{{ w }}</th>{% endfor %}
+        <th>Δ</th><th>Trend</th></tr>
+    </thead>
+    <tbody>
+    {% for row in trend.rows %}
+      <tr>
+        <td>{{ row.pid }}</td>
+        {% for c in row.cells %}
+          <td>{% if c is not none %}{{ c }}%{% else %}—{% endif %}</td>
+        {% endfor %}
+        <td class="{{ 'noise' if row.noise else '' }}">
+          {% if row.delta is not none %}{{ '%+d'|format(row.delta) }}pp{% else %}—{% endif %}
+        </td>
+        <td class="sparkcell">{{ row.spark|safe }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+{% endblock %}

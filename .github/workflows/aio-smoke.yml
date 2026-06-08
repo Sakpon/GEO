@@ -1,0 +1,46 @@
+name: AIO smoke (commit marker)
+
+# A real, on-demand smoke run of the AIO probe against SerpApi.
+# Runs ONLY when the latest pushed commit's message contains the exact token
+# below. Keep that token out of ordinary commit messages so it never fires by
+# accident. (Tag triggers aren't usable here: the git proxy only accepts pushes
+# to the working branch, not tags.)
+#
+# To run: push an empty commit whose message contains the trigger token.
+# Requires the SERPAPI_API_KEY repository Actions secret.
+
+on:
+  push:
+    branches:
+      - "claude/**"
+
+jobs:
+  smoke:
+    if: contains(github.event.head_commit.message, 'AIO_SMOKE_TRIGGER_7F3A')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r experiments/requirements.txt
+
+      - name: Real smoke run (core tier, 1 run each)
+        env:
+          SERPAPI_API_KEY: ${{ secrets.SERPAPI_API_KEY }}
+        run: |
+          if [ -z "$SERPAPI_API_KEY" ]; then
+            echo "::error::SERPAPI_API_KEY secret is not set."; exit 1
+          fi
+          cd experiments
+          python aio_citation_probe.py --tier core --n-runs 1 --yes
+
+      - name: Print report to log
+        run: |
+          echo "===== Markdown report ====="
+          cat workspace/geo-audits/*-aio-citation-probe.md
+          echo "===== Raw runs ====="
+          cat experiments/results/*-raw.jsonl

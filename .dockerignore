@@ -1,0 +1,5 @@
+**/__pycache__/
+**/*.pyc
+.git/
+workspace/geo-audits/*.xlsx
+experiments/results/*-raw.jsonl
