@@ -3,7 +3,7 @@
 
 Measures how often Google's AI Overview (AIO) appears for a set of dental
 queries and how often The Dent is cited in it, using the SerpApi
-`google_search` + `google_ai_overview` engines (Thailand locale).
+`google` + `google_ai_overview` engines (Thailand locale).
 
 The heavy lifting lives in `run_experiment()` so the CLI here and the Flask
 web app (`webapp.py`) share one code path. Run from the CLI with:
@@ -149,7 +149,7 @@ def fetch_aio(query: str, locale: dict, api_key: str,
     """Resolve the AIO for one query. Returns dict with aio_present, references,
     calls (SerpApi searches billed), and error (str|None)."""
     base = {
-        "engine": "google_search",
+        "engine": "google",
         "q": query,
         "location": locale.get("location"),
         "google_domain": locale.get("google_domain"),
@@ -362,7 +362,7 @@ def run_experiment(cfg: dict, api_key: str, *, n_runs: int | None = None,
         "run_date": run_date,
         "n_runs": n_runs,
         "tier": tier or "all",
-        "engine": "serpapi google_search + google_ai_overview",
+        "engine": "serpapi google + google_ai_overview",
         "locale": cfg.get("defaults", {}),
         "prompts_run": len(results),
         "prompts_skipped": skipped,

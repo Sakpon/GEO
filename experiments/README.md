@@ -5,7 +5,7 @@ queries and how often **thedent.co.th** is cited in it — run each prompt N tim
 and report the **% of runs with an AIO** and the **% where The Dent is cited**,
 with confidence intervals and week-over-week trends.
 
-Data source: **SerpApi** (`google_search` + `google_ai_overview` engines),
+Data source: **SerpApi** (`google` + `google_ai_overview` engines),
 queried with a **Thailand** locale (`location=Thailand, gl=th,
 google_domain=google.co.th`) in Thai and English.
 
