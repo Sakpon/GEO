@@ -1,0 +1,73 @@
+name: Weekly AIO citation audit
+
+# Runs the AIO citation probe on a schedule and commits the report + history.
+# The container Claude runs in is ephemeral, so scheduling lives here in CI.
+#
+# Setup: add SERPAPI_API_KEY as a repository secret
+#   (Settings -> Secrets and variables -> Actions).
+
+on:
+  schedule:
+    # Mondays 02:00 UTC (~09:00 Bangkok): core tier, every week.
+    - cron: "0 2 * * 1"
+    # 1st of the month 03:00 UTC: full tier deep-dive.
+    - cron: "0 3 1 * *"
+  workflow_dispatch:
+    inputs:
+      tier:
+        description: "Prompt tier to run"
+        type: choice
+        options: [core, full]
+        default: core
+      n_runs:
+        description: "Runs per prompt (cap)"
+        default: "10"
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r experiments/requirements.txt
+
+      - name: Decide tier
+        id: cadence
+        run: |
+          if [ "${{ github.event.schedule }}" = "0 3 1 * *" ]; then
+            echo "tier=full"   >> "$GITHUB_OUTPUT"
+            echo "n_runs=20"   >> "$GITHUB_OUTPUT"
+          else
+            echo "tier=${{ github.event.inputs.tier || 'core' }}" >> "$GITHUB_OUTPUT"
+            echo "n_runs=${{ github.event.inputs.n_runs || '10' }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run AIO citation probe
+        env:
+          SERPAPI_API_KEY: ${{ secrets.SERPAPI_API_KEY }}
+        run: |
+          cd experiments
+          python aio_citation_probe.py --yes \
+            --tier "${{ steps.cadence.outputs.tier }}" \
+            --n-runs "${{ steps.cadence.outputs.n_runs }}"
+
+      - name: Commit report + history
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add workspace/geo-audits/*.xlsx workspace/geo-audits/*.md \
+                  experiments/results/history.jsonl experiments/results/*.jsonl || true
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore(aio): weekly citation audit ($(date -u +%F))"
+            git push
+          fi

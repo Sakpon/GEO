@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Run an AIO citation audit</h1>
+<p class="muted">
+  Measures how often Google's AI Overview cites
+  <strong>thedent.co.th</strong> for each prompt (Thailand locale).
+  Up to {{ max_prompts }} prompts, one per line. Add <code>| en</code> or
+  <code>| th</code> to set the language.
+</p>
+
+{% if not api_key_set %}
+<div class="banner error">SERPAPI_API_KEY is not set on the server — runs will fail.</div>
+{% endif %}
+
+<form method="post" action="{{ url_for('run') }}" class="card" id="runform">
+  <label for="prompts">Prompts</label>
+  <textarea id="prompts" name="prompts" rows="10"
+            placeholder="Best dental implant clinic in Bangkok | en">{{ prompts_text }}</textarea>
+  <p class="muted" id="count"></p>
+
+  <div class="grid2">
+    <div>
+      <label for="n_runs">Runs per prompt (cap)</label>
+      <input id="n_runs" name="n_runs" type="number" inputmode="numeric"
+             min="1" max="50" value="{{ n_runs }}">
+    </div>
+    <div>
+      <label>Estimated max API calls</label>
+      <output id="estimate" class="estimate">—</output>
+    </div>
+  </div>
+
+  <p class="muted">Month-to-date calls: <strong>{{ used }}</strong> / budget {{ budget }}.
+     Early-stopping usually spends far fewer than the max.</p>
+
+  <label class="check">
+    <input type="checkbox" name="confirm" required>
+    I understand this spends SerpApi credits.
+  </label>
+
+  <div class="actionbar">
+    <button type="submit" class="btn primary">Run audit</button>
+  </div>
+</form>
+
+<h2>Past reports</h2>
+{% if reports %}
+<div class="scroll-x">
+  <table>
+    <thead><tr><th>File</th><th>Type</th><th>Size</th><th></th></tr></thead>
+    <tbody>
+    {% for r in reports %}
+      <tr>
+        <td>{{ r.name }}</td>
+        <td>{{ r.kind }}</td>
+        <td>{{ r.size_kb }} KB</td>
+        <td><a class="btn small" href="{{ url_for('download', filename=r.name) }}">Download</a></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<p class="muted">No reports yet.</p>
+{% endif %}
+
+<script>
+  const ta = document.getElementById('prompts');
+  const nr = document.getElementById('n_runs');
+  const est = document.getElementById('estimate');
+  const cnt = document.getElementById('count');
+  const MAX = {{ max_prompts }};
+  function update() {
+    const lines = ta.value.split('\n').map(s => s.trim()).filter(Boolean);
+    const runs = Math.max(1, parseInt(nr.value || '1', 10));
+    est.textContent = (lines.length * runs * 2) + ' (worst case)';
+    cnt.textContent = lines.length + ' / ' + MAX + ' prompts';
+    cnt.className = lines.length > MAX ? 'muted error' : 'muted';
+  }
+  ta.addEventListener('input', update);
+  nr.addEventListener('input', update);
+  update();
+</script>
+{% endblock %}
