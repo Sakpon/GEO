@@ -92,6 +92,36 @@ Single source of truth for the prompt set (max **30** prompts) and run knobs:
 the 1st of the month) and commits the report + history. Add `SERPAPI_API_KEY`
 as a GitHub Actions repository secret and ensure Actions can push to the branch.
 
+## Deploying the web app to a public URL (e.g. audit.martics.co)
+
+The web app is a Flask service, so it needs a host that can run Python/Docker.
+A `Dockerfile`, `docker-compose.yml`, and `Caddyfile` (auto-HTTPS) are in the
+repo root for a one-command deploy on any server with Docker.
+
+On a server (VPS/VM) with Docker installed and ports 80 + 443 open:
+
+1. **DNS:** add an `A` record `audit.martics.co` → the server's public IP.
+   (If you prefer a CNAME to another host, point it there instead.)
+2. **Run it:**
+   ```bash
+   git clone https://github.com/Sakpon/GEO.git && cd GEO
+   git checkout claude/aio-summary-experiments-GJubb
+   export SERPAPI_API_KEY=your_serpapi_key
+   export BASIC_AUTH_PASSWORD=a_strong_password   # username defaults to "thedent"
+   docker compose up -d --build
+   ```
+   Caddy automatically provisions a Let's Encrypt certificate, so the app is live
+   at **https://audit.martics.co** within ~1 minute.
+
+Notes:
+- Edit the hostname in `Caddyfile` if you want a different subdomain.
+- Reports and trend history persist in Docker named volumes across restarts.
+- The container runs gunicorn with **one worker** on purpose — job progress is
+  tracked in memory, so multiple workers wouldn't share job state.
+- If `martics.co` is on shared hosting / WordPress / a static host that can't run
+  Python, run this container on a small separate VPS and just point the
+  `audit.martics.co` subdomain at that VPS.
+
 ## Accuracy
 
 - Citation detection is deterministic (linked references only — not unlinked

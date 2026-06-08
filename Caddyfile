@@ -1,0 +1,6 @@
+# Serves the audit app on a martics.co subdomain with automatic HTTPS.
+# Change the hostname if you prefer a different subdomain.
+audit.martics.co {
+    encode gzip
+    reverse_proxy app:8000
+}

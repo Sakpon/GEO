@@ -1,0 +1,40 @@
+# One-command deploy of the AIO audit app behind auto-HTTPS for
+# audit.martics.co. Run on a server (VPS/VM) that has Docker, ports 80+443
+# open, and a DNS A record  audit.martics.co -> this server's public IP.
+#
+#   export SERPAPI_API_KEY=...        # SerpApi key
+#   export BASIC_AUTH_PASSWORD=...    # strong login password
+#   docker compose up -d --build
+#
+# Reports and trend history persist in named volumes across restarts.
+
+services:
+  app:
+    build: .
+    environment:
+      - SERPAPI_API_KEY=${SERPAPI_API_KEY}
+      - BASIC_AUTH_USERNAME=${BASIC_AUTH_USERNAME:-thedent}
+      - BASIC_AUTH_PASSWORD=${BASIC_AUTH_PASSWORD:?set a strong BASIC_AUTH_PASSWORD}
+    volumes:
+      - aio_reports:/app/workspace/geo-audits
+      - aio_results:/app/experiments/results
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
+    restart: unless-stopped
+
+volumes:
+  aio_reports:
+  aio_results:
+  caddy_data:
+  caddy_config:
