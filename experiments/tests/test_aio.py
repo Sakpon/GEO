@@ -50,15 +50,15 @@ def _mock_provider():
     other -> no AIO (1 call)."""
     def fake_get(params, session, **kw):
         if params.get("engine") == "google_ai_overview":
-            return {"ai_overview": {"references": [{"link": "https://bidc.com/a"}]}}, True
+            return {"ai_overview": {"references": [{"link": "https://bidc.com/a"}]}}, True, None
         q = params.get("q", "")
         if "implant" in q:
             return {"ai_overview": {"text_blocks": [{}], "references": [
                 {"link": "https://www.thedent.co.th/implants"},
-                {"link": "https://bidc.com/b"}]}}, True
+                {"link": "https://bidc.com/b"}]}}, True, None
         if "veneer" in q:
-            return {"ai_overview": {"page_token": "T"}}, True
-        return {"organic_results": []}, True
+            return {"ai_overview": {"page_token": "T"}}, True, None
+        return {"organic_results": []}, True, None
     return fake_get
 
 

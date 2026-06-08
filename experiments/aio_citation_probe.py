@@ -92,35 +92,46 @@ def domain_matches(host: str, target: str) -> bool:
 
 # --- SerpApi (provider-isolated) -------------------------------------------
 def serpapi_get(params: dict, session: requests.Session, *, timeout: int = 45,
-                max_retries: int = 3) -> tuple[dict | None, bool]:
-    """One SerpApi call. Returns (json_or_None, billed).
+                max_retries: int = 3) -> tuple[dict | None, bool, str | None]:
+    """One SerpApi call. Returns (json_or_None, billed, error).
 
     `billed` marks a successful (HTTP 200, parseable) search — the only kind
     SerpApi charges for. Network/5xx errors are retried with backoff and are
-    not billed.
+    not billed. `error` is None on success, else a short diagnostic string
+    (HTTP status + SerpApi's error message) so failures are explainable.
     """
+    def detail(resp) -> str:
+        try:
+            msg = resp.json().get("error") or resp.text[:200]
+        except ValueError:
+            msg = resp.text[:200]
+        return f"HTTP {resp.status_code}: {msg}".strip()
+
     backoff = 2.0
+    last_err = "unknown_error"
     for attempt in range(1, max_retries + 1):
         try:
             resp = session.get(SERPAPI_ENDPOINT, params=params, timeout=timeout)
-        except requests.RequestException:
+        except requests.RequestException as exc:
+            last_err = f"network_error: {type(exc).__name__}"
             if attempt == max_retries:
-                return None, False
+                return None, False, last_err
             time.sleep(backoff)
             backoff *= 2
             continue
         if resp.status_code == 200:
             try:
-                return resp.json(), True
+                return resp.json(), True, None
             except ValueError:
-                return None, True  # billed but unparseable; treat as failed run
+                return None, True, "HTTP 200: unparseable JSON body"
         if resp.status_code in (429, 500, 502, 503, 504) and attempt < max_retries:
+            last_err = detail(resp)
             time.sleep(backoff)
             backoff *= 2
             continue
         # 4xx (bad key, quota exhausted, etc.) — not retryable, not billed
-        return None, False
-    return None, False
+        return None, False, detail(resp)
+    return None, False, last_err
 
 
 def extract_references(aio: dict) -> list[dict]:
@@ -150,11 +161,11 @@ def fetch_aio(query: str, locale: dict, api_key: str,
     base = {k: v for k, v in base.items() if v is not None}
 
     calls = 0
-    data, billed = serpapi_get(base, session)
+    data, billed, err = serpapi_get(base, session)
     calls += 1 if billed else 0
     if data is None:
         return {"aio_present": False, "references": [], "calls": calls,
-                "error": "search_failed"}
+                "error": err or "search_failed"}
 
     aio = data.get("ai_overview") or {}
     has_inline = bool(aio.get("text_blocks"))
@@ -164,16 +175,17 @@ def fetch_aio(query: str, locale: dict, api_key: str,
     references = extract_references(aio) if has_inline else []
 
     # Second call only when content isn't already inline but a token exists.
+    err2 = None
     if not has_inline and page_token:
         follow = {"engine": "google_ai_overview", "page_token": page_token,
                   "api_key": api_key}
-        data2, billed2 = serpapi_get(follow, session)
+        data2, billed2, err2 = serpapi_get(follow, session)
         calls += 1 if billed2 else 0
         if data2:
             references = extract_references(data2.get("ai_overview") or {})
 
     return {"aio_present": aio_present, "references": references,
-            "calls": calls, "error": None}
+            "calls": calls, "error": err2}
 
 
 # --- Per-prompt run (with adaptive early-stopping) -------------------------
